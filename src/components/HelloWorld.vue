@@ -26,10 +26,10 @@
 
                         <div class="row p-3">
                             <div class="color-box "
-                                 v-for="variant in variants"
+                                 v-for="(variant,index) in variants"
                                  :key="variant.variantId"
                                  :style="{backgroundColor: variant.variantColor }"
-                                 @mouseover="updateProduct(variant.variantImage)"
+                                 @mouseover="updateProduct(index)"
                             ></div>
                         </div>
 
@@ -69,21 +69,22 @@
 
             product: 'Socks',
             brand:'HM',
-            image: './images/vmSocks-green-onWhite.jpg',
-            altText: ' a pair of socks',
-            inventory: true,
-            inStock:true,
+            selectedVariant:0,
+            
             details: ["80% cotton", "20% polyester", "Gender-neutral"],
             variants: [
                 {
                     variantId: 2234,
                     variantColor: "green",
                     variantImage: "./images/vmSocks-green-onWhite.jpg",
+                    variantQuantity:10,
                 },
                 {
                     variantId: 2235,
                     variantColor: "blue",
                     variantImage: "./images/vmSocks-blue-onWhite.jpg",
+                    variantQuantity:0,
+
 
                 }
 
@@ -96,13 +97,22 @@
             addToCart() {
                 this.cart += 1;
             },
-            updateProduct(variantImage) {
-                this.image = variantImage
+            updateProduct(index) {
+                this.selectedVariant = index
+                console.log(index)
             }
         },
         computed:{
             title(){
                 return this.brand+ ' '+this.product
+            },
+            image(){
+                return this.variants[this.selectedVariant].variantImage
+
+            },
+            inStock(){
+                return this.variants[this.selectedVariant].variantQuantity
+
             }
         }
     }
