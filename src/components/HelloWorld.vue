@@ -1,0 +1,115 @@
+<template>
+    <div>
+        <div class="nav-bar "></div>
+        <h1> {{ title }}</h1>
+        <div id="app">
+
+
+            <div class="row p-2">
+
+                <div class="col-md-4">
+                    <div class="product-image">
+                        <img :src="image" :alt="altText"></div>
+                    <h5 v-show="inventory ">In Stock</h5>
+
+                </div>
+
+                <div class="col-md-4">
+                    <div class="product-info">
+
+                        <div class="row">
+                            <ul>
+                                <li v-for="detail in details" :key="detail">{{ detail }}</li>
+                            </ul>
+                        </div>
+
+
+                        <div class="row p-3">
+                            <div class="color-box "
+                                 v-for="variant in variants"
+                                 :key="variant.variantId"
+                                 :style="{backgroundColor: variant.variantColor }"
+                                 @mouseover="updateProduct(variant.variantImage)"
+                            ></div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-4">
+                    <div class="cart ">
+                        <button v-on:click="addToCart"
+                                :disabled="!inStock"
+                                :class="{ disabledButton:!inStock }"
+                                >Add to Cart
+
+                        </button>
+
+                        <p>Cart {{ cart }}</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+</template>
+
+<script>
+    export default {
+        name: 'HelloWorld',
+
+        data: () => ({
+
+            product: 'Socks',
+            brand:'HM',
+            image: './images/vmSocks-green-onWhite.jpg',
+            altText: ' a pair of socks',
+            inventory: true,
+            inStock:true,
+            details: ["80% cotton", "20% polyester", "Gender-neutral"],
+            variants: [
+                {
+                    variantId: 2234,
+                    variantColor: "green",
+                    variantImage: "./images/vmSocks-green-onWhite.jpg",
+                },
+                {
+                    variantId: 2235,
+                    variantColor: "blue",
+                    variantImage: "./images/vmSocks-blue-onWhite.jpg",
+
+                }
+
+            ],
+            cart: 0,
+
+
+        }),
+        methods: {
+            addToCart() {
+                this.cart += 1;
+            },
+            updateProduct(variantImage) {
+                this.image = variantImage
+            }
+        },
+        computed:{
+            title(){
+                return this.brand+ ' '+this.product
+            }
+        }
+    }
+
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+
+</style>
