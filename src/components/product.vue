@@ -11,6 +11,10 @@
 
             <div class="col-md-4">
                 <div class="product-info">
+                    <h1>{{ product }}</h1>
+                    <h1>{{ title }}</h1>
+                    <p> Shipping: {{ shipping }}</p>
+
 
                     <div class="row">
                         <ul>
@@ -27,6 +31,12 @@
                              @mouseover="updateProduct(index)"
                         ></div>
                     </div>
+                    <button v-on:click="addToCart"
+                            :disabled="!inStock"
+                            :class="{ disabledButton:!inStock }"
+                    >Add to Cart
+
+                    </button>
 
 
                 </div>
@@ -35,18 +45,8 @@
             </div>
 
             <div class="col-md-4">
-                <div class="cart ">
-                    <button v-on:click="addToCart"
-                            :disabled="!inStock"
-                            :class="{ disabledButton:!inStock }"
-                    >Add to Cart
 
-                    </button>
 
-                    <p>Cart {{ cart }}</p>
-                </div>
-                <h1>{{ title }}</h1>
-                <p> Shipping: {{ shipping }}</p>
             </div>
 
 
@@ -88,27 +88,33 @@
                     }
 
                 ],
-                cart: 0,
+
 
 
 
             }
         },
         methods:{
-            addToCart() {
-                this.cart += 1;
+            addToCart(){
+              this.$emit('add-to-cart',this.variants[this.selectedVariant].variantId)
             },
+
             updateProduct(index) {
                 this.selectedVariant = index
                 console.log(index)
-            }
+            },
+
 
         },
         computed:{
+            title() {
+                return this.brand + ' ' + this.product
+            },
             image(){
                 return this.variants[this.selectedVariant].variantImage
 
             },
+
             inStock(){
                 return this.variants[this.selectedVariant].variantQuantity
 

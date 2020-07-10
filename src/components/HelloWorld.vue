@@ -3,9 +3,14 @@
         <div class="nav-bar "></div>
         <h1> {{ title }}</h1>
         <div id="app">
+            <div class="cart ">
 
 
-            <product :premium="premium"></product>
+                <p>Cart {{ cart.length }}</p>
+            </div>
+
+
+            <product :premium="premium" @add-to-cart="updateCart"></product>
 
 
 
@@ -27,17 +32,21 @@
         data: function () {
             return {
                 premium: false,
+                cart: [],
 
 
 
             };
         },
+        methods:{
+            updateCart(id){
+                this.cart.push(id)
+            }
+        },
 
 
         computed: {
-            title() {
-                return this.brand + ' ' + this.product
-            },
+
 
 
         }
