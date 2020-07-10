@@ -3,19 +3,22 @@
         <div class="nav-bar "></div>
         <h1> {{ title }}</h1>
         <div id="app">
-            <product :premium="premium"></product>
+
+
             <product :premium="premium"></product>
 
-            <p>Shipping: {{ shipping}}</p>
+
 
 
         </div>
     </div>
 
-</template>
 
+</template>
 <script>
+
     import Product from "@/components/product";
+
 
     export default {
         name: 'HelloWorld',
@@ -23,7 +26,10 @@
         el: '#app',
         data: function () {
             return {
-                premium: true
+                premium: false,
+
+
+
             };
         },
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="product">
+    <div id="product">
         <div class="row p-2">
 
             <div class="col-md-4">
@@ -45,6 +45,8 @@
 
                     <p>Cart {{ cart }}</p>
                 </div>
+                <h1>{{ title }}</h1>
+                <p> Shipping: {{ shipping }}</p>
             </div>
 
 
@@ -58,7 +60,8 @@
         props: {
             premium: {
                 type: Boolean,
-                required: true
+                required: true,
+
             }
         },
         data(){
